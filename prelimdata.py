@@ -28,27 +28,38 @@ reviewsDF = pd.DataFrame(reviews)
 businessDF = pd.DataFrame(business)
 
 #Subset Reviews Text Data and sort by Business_id and Date
-outputDF = reviewsDF[['business_id', 'date', 'stars', 'text']].sort(['business_id', 'date'], ascending=[1, 1])
+#Further Processing of Dataframes
+# outputDF = reviewsDF[['business_id', 'date', 'stars', 'text']].sort(['business_id', 'date'], ascending=[1, 1])
+processrwDF = reviewsDF[['business_id', 'date', 'stars', 'text', 'votes']].sort(['business_id', 'date'], ascending=[1, 1])
+businessrwDF = businessDF[['schools', 'categories', 'name', 'review_count', 'stars', 'latitude', 'longitude', 'city',
+                           'state']]
+businessrwDF.schools = ''.join(str(e) for e in businessrwDF.schools)
+businessrwDF = businessrwDF.sort(['schools'], ascending=[1])
 
-#Output Data in CSV file
-with open('customersInfo.csv', 'wb') as f:
-    customersDF.to_csv(f,header=False, encoding='utf-8', index=False)
+with open('businessinfo_Sort.csv', 'wb') as f:
+    businessrwDF.to_csv(f,header=False, encoding='utf-8', index=False)
 f.close()
-print 'Customer Info file created'
+print 'Sorted Business info file created'
 
-with open('reviewText.csv', 'wb') as f:
-    reviewsDF.to_csv(f,header=False, encoding='utf-8', index=False)
-f.close()
-print 'Review Text file created'
-
-with open('businessInfo.csv', 'wb') as f:
-    businessDF.to_csv(f,header=False, encoding='utf-8', index=False)
-f.close()
-print 'Business Info file created'
-
-with open('ReviewsForAnalysis.csv', 'wb') as f:
-    outputDF.to_csv(f,header=False, encoding='utf-8', index=False)
-f.close()
-print 'Output Data file created'
+# #Output Data in CSV file
+# with open('customersInfo.csv', 'wb') as f:
+#     customersDF.to_csv(f,header=False, encoding='utf-8', index=False)
+# f.close()
+# print 'Customer Info file created'
+#
+# with open('reviewText.csv', 'wb') as f:
+#     reviewsDF.to_csv(f,header=False, encoding='utf-8', index=False)
+# f.close()
+# print 'Review Text file created'
+#
+# with open('businessInfo.csv', 'wb') as f:
+#     businessDF.to_csv(f,header=False, encoding='utf-8', index=False)
+# f.close()
+# print 'Business Info file created'
+#
+# with open('ReviewsForAnalysis.csv', 'wb') as f:
+#     outputDF.to_csv(f,header=False, encoding='utf-8', index=False)
+# f.close()
+# print 'Output Data file created'
 
 
